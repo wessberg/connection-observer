@@ -39,7 +39,7 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
 
 <!-- SHADOW_SECTION_FEATURES_END -->
 
-- Familiar API: Follows the same conventions as `[MutationObserver]`(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), [`PerformanceObserver`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), and [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
+- Familiar API: Follows the same conventions as `[MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), [`PerformanceObserver`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), and [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
 - Asynchronous: Entries are batched together as microtasks
 - Tiny
 - Performant
@@ -259,7 +259,7 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 #### Why can't you just use MutationObservers for this
 
-With `[MutationObserver]`(https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), we can watch for changes being made to the DOM tree from any root,
+With `[MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), we can watch for changes being made to the DOM tree from any root,
 but using it to watch for when an arbitrary Node is attached to or detached from the DOM is very hard since that requires tracking all [Shadow Roots](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot).
 
 There is [an ongoing discussion](https://github.com/whatwg/dom/issues/533) about adding support for tracking connectedness of any Node via MutationObservers, and this library aims to render itself obsolete if and when

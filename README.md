@@ -63,6 +63,10 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
   - [Observing Nodes for connectedness](#observing-nodes-for-connectedness)
   - [Disconnecting the ConnectionObserver](#disconnecting-the-connectionobserver)
   - [Taking ConnectionRecords immediately](#taking-connectionrecords-immediately)
+- [API reference](#api-reference)
+  - [ConnectionObserver](#connectionobserver)
+  - [ConnectionCallback](#connectioncallback)
+  - [ConnectionRecord](#connectionrecord)
 - [Contributing](#contributing)
 - [Maintainers](#maintainers)
 - [Backers](#backers)
@@ -162,15 +166,14 @@ This section includes a more code-oriented introduction to the types and interfa
 ### ConnectionObserver
 
 ```typescript
-
 class ConnectionObserver {
 	[Symbol.toStringTag]: string;
-	
+
 	/**
-	* Constructs a new ConnectionObserver
-* @param {ConnectionCallback} callback
-*/
-	constructor (callback: ConnectionCallback);
+	 * Constructs a new ConnectionObserver
+	 * @param {ConnectionCallback} callback
+	 */
+	constructor(callback: ConnectionCallback);
 
 	/**
 	 * Observes the given target Node for connections/disconnections.
@@ -202,7 +205,7 @@ type ConnectionCallback = (entries: ConnectionRecord[], observer: IConnectionObs
 
 ### ConnectionRecord
 
-[ConnectionCallbacks](#connectioncallback) are invoked with an array of `ConnectionRecord`s. Those have the following members: 
+[ConnectionCallbacks](#connectioncallback) are invoked with an array of `ConnectionRecord`s. Those have the following members:
 
 ```typescript
 interface ConnectionRecord {

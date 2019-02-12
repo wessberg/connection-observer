@@ -1,6 +1,6 @@
 <!-- SHADOW_SECTION_LOGO_START -->
 
-<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/connection-observer/master/documentation/asset/logo.png" height="90"   /></div>
+<div><img alt="Logo" src="https://raw.githubusercontent.com/wessberg/connection-observer/master/documentation/asset/logo.png" height="110"   /></div>
 
 <!-- SHADOW_SECTION_LOGO_END -->
 

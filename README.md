@@ -28,7 +28,7 @@
 
 <!-- SHADOW_SECTION_DESCRIPTION_LONG_END -->
 
-`ConnectionObserver` is a tiny API that provides a way to asynchronously observe the connectedness of a target Node inside a document.
+`ConnectionObserver` is a tiny (1kb) API that provides a way to asynchronously observe the connectedness of a target Node inside a document.
 
 With `ConnectionObserver`, you have a low-level building block that can be used to build functionality on top of when you need to
 perform work when a Node lives inside the DOM, and/or perform work when it becomes detached.
@@ -41,7 +41,7 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
 
 - Familiar API: Follows the same conventions as [`MutationObserver`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver), [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), [`PerformanceObserver`](https://developer.mozilla.org/en-US/docs/Web/API/PerformanceObserver), and [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver)
 - Asynchronous: Entries are batched together as microtasks
-- Tiny
+- Tiny (1kb)
 - Performant
 
 <!-- SHADOW_SECTION_FEATURE_IMAGE_START -->

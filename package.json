@@ -1,6 +1,6 @@
 {
 	"name": "@wessberg/connection-observer",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "An API that provides a way to asynchronously observe the connectedness of a target Node inside a document",
 	"repository": {
 		"type": "git",

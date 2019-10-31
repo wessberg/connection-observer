@@ -6,6 +6,8 @@ import {IConnectionObserver} from "./i-connection-observer";
 import {OBSERVED_ROOTS} from "../observe-root/observe-root";
 import {queryRoot} from "../util/query-root";
 import {mergeNodes} from "../util/merge-nodes";
+import {rootObserverQueue} from "../root-observer-queue/root-observer-queue";
+import {observeMissingRoots} from "../observe-missing-roots/observe-missing-roots";
 
 export const CONNECTION_OBSERVER_INTERNALS_MAP: Map<IConnectionObserver, ConnectionObserverInternals> = new Map();
 
@@ -64,9 +66,9 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 
 	/**
 	 * A Map between query selectors and Nodes that matches them
-	 * @type {Map<string, Set<Node>>}
+	 * @type {Map<string, Map<Node, Set<Node>>>}
 	 */
-	const querySelectorToMatchedNodesMap: Map<string, Set<Node>> = new Map();
+	const rootToQuerySelectorToMatchedNodesMap: WeakMap<Node, Map<string, Set<Node>>> = new Map();
 
 	/**
 	 * A WeakMap between Nodes and their last 'connected' value
@@ -85,6 +87,8 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 	 * @type {boolean}
 	 */
 	let flushing: boolean = false;
+
+	let hasFoundMissingRoots = false;
 
 	/**
 	 * Flushes the ConnectionRecord queue
@@ -149,19 +153,25 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 	 * @param {string} query
 	 */
 	const queryRootAndHandleMutationChanges = (root: Node, query: string): void => {
+		let oldQuerySelectorMap = rootToQuerySelectorToMatchedNodesMap.get(root);
+
 		// Check which nodes currently match the query
 		const currentNodes = queryRoot(root, query);
 
+		// Whatever nodes that has been matched for the query on the target previously
+		const oldNodes = oldQuerySelectorMap == null ? undefined : oldQuerySelectorMap.get(query);
+
 		// Combine the nodes matching the query with the ones that did did so previously
-		const mergedNodes = mergeNodes(
-			currentNodes,
-			// Whatever nodes that has been matched for the query on the target previously
-			querySelectorToMatchedNodesMap.get(query)
-		);
+		const mergedNodes = mergeNodes(currentNodes, oldNodes);
+
 		handleMutationChange(mergedNodes);
 
 		// Update the observed nodes such that they only consider the currently matched nodes
-		querySelectorToMatchedNodesMap.set(query, currentNodes);
+		if (oldQuerySelectorMap == null) {
+			oldQuerySelectorMap = new Map();
+			rootToQuerySelectorToMatchedNodesMap.set(root, oldQuerySelectorMap);
+		}
+		oldQuerySelectorMap.set(query, currentNodes);
 	};
 
 	/**
@@ -192,6 +202,14 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 	 * @param {Node|string} target
 	 */
 	const addObservedTarget = (target: Node | string): void => {
+		// Now that a target node is to observed, run the root observer queue (if it isn't already running)
+		rootObserverQueue.run();
+
+		if (!hasFoundMissingRoots) {
+			hasFoundMissingRoots = true;
+			observeMissingRoots();
+		}
+
 		observedTargets.add(target);
 
 		if (typeof target !== "string") {

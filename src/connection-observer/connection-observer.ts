@@ -2,7 +2,6 @@ import {ConnectionCallback} from "./connection-callback";
 import {ConnectionRecord} from "./connection-record";
 import {IConnectionObserver} from "./i-connection-observer";
 import {CONNECTION_OBSERVER_INTERNALS_MAP, initializeConnectionObserver} from "./connection-observer-internals";
-import {rootObserverQueue} from "../root-observer-queue/root-observer-queue";
 
 /**
  * An Observer that tracks the DOM-insertion state of observed nodes across Shadow boundaries.
@@ -55,9 +54,6 @@ export class ConnectionObserver implements IConnectionObserver {
 				`Failed to execute '${this.observe.name}' on '${ConnectionObserver.name}': parameter 1 is not of type 'Node' or a DOMString.`
 			);
 		}
-
-		// Now that a target node is to observed, run the root observer queue (if it isn't already running)
-		rootObserverQueue.run();
 
 		const internals = CONNECTION_OBSERVER_INTERNALS_MAP.get(this);
 		if (internals == null) return;

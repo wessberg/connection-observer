@@ -14,7 +14,9 @@ export const observeRoot = (() => {
 	 * @param {Node} root
 	 */
 	return function(root: Node): void {
+		if (OBSERVED_ROOTS.has(root)) return;
 		OBSERVED_ROOTS.add(root);
+
 		if (instance == null) {
 			// Prepare MutationObserver right off the bat. Reuse the same instance
 			instance = new MutationObserver(mutationCallback);

@@ -6,7 +6,7 @@ import {PausableQueue} from "./pausable-queue";
  * @param {Node[]} queueItems
  * @return {PausableQueue}
  */
-export function createPausableQueue (job: (node: Node) => void, ...queueItems: Node[]): PausableQueue {
+export function createPausableQueue(job: (node: Node) => void, ...queueItems: Node[]): PausableQueue {
 	const queue: Set<Node> = new Set(queueItems);
 	let running = false;
 
@@ -20,19 +20,19 @@ export function createPausableQueue (job: (node: Node) => void, ...queueItems: N
 	};
 
 	return {
-		get running () {
+		isRunning() {
 			return running;
 		},
-		schedule (node: Node): void {
+		schedule(node: Node): void {
 			queue.add(node);
 			if (running) {
 				flush();
 			}
 		},
-		stop (): void {
+		stop(): void {
 			running = false;
 		},
-		run (): void {
+		run(): void {
 			// If the queue is already running, do nothing
 			if (running) return;
 			running = true;

@@ -1,7 +1,7 @@
 {
 	"name": "@wessberg/connection-observer",
 	"version": "1.0.1",
-	"description": "An API that provides a way to asynchronously observe the connectedness of a target Node inside a document",
+	"description": "An API that provides a way to asynchronously observe the connectedness of a target Node or querySelector inside a document",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/wessberg/connection-observer.git"
@@ -10,12 +10,9 @@
 		"url": "https://github.com/wessberg/connection-observer/issues"
 	},
 	"scripts": {
-		"generate:readme": "scaffold readme --yes",
-		"generate:license": "scaffold license --yes",
-		"generate:contributing": "scaffold contributing --yes",
-		"generate:coc": "scaffold coc --yes",
+		"generate:scaffold": "scaffold all --yes",
 		"generate:changelog": "standard-changelog --first-release",
-		"generate:all": "npm run generate:license & npm run generate:contributing & npm run generate:coc & npm run generate:readme && npm run generate:changelog",
+		"generate:all": "npm run generate:scaffold && npm run generate:changelog",
 		"clean:dist": "rm -rf dist",
 		"clean:compiled": "rm -rf compiled",
 		"clean": "npm run clean:dist && npm run clean:compiled",
@@ -50,22 +47,23 @@
 			"url": "https://github.com/wessberg",
 			"imageUrl": "https://avatars2.githubusercontent.com/u/20454213?s=460&v=4",
 			"role": "Lead Developer",
-			"twitter": "FredWessberg"
+			"twitter": "FredWessberg",
+			"github": "wessberg"
 		}
 	],
 	"license": "MIT",
 	"devDependencies": {
-		"@wessberg/rollup-plugin-ts": "1.1.54",
-		"@wessberg/scaffold": "1.0.18",
-		"@wessberg/ts-config": "^0.0.40",
-		"rollup": "^1.12.4",
-		"tslint": "^5.16.0",
-		"typescript": "^3.5.1",
-		"standard-changelog": "^2.0.11",
-		"prettier": "^1.17.1",
-		"pretty-quick": "^1.11.0",
-		"husky": "^2.3.0",
-		"np": "^5.0.2"
+		"@wessberg/rollup-plugin-ts": "1.1.73",
+		"@wessberg/scaffold": "1.0.19",
+		"@wessberg/ts-config": "^0.0.41",
+		"rollup": "^1.26.0",
+		"tslint": "^5.20.0",
+		"typescript": "^3.6.4",
+		"standard-changelog": "^2.0.15",
+		"prettier": "^1.18.2",
+		"pretty-quick": "^2.0.0",
+		"husky": "^3.0.9",
+		"np": "^5.1.2"
 	},
 	"dependencies": {},
 	"main": "./dist/index.js",

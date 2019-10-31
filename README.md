@@ -6,7 +6,7 @@
 
 <!-- SHADOW_SECTION_DESCRIPTION_SHORT_START -->
 
-> An API that provides a way to asynchronously observe the connectedness of a target Node inside a document
+> An API that provides a way to asynchronously observe the connectedness of a target Node or querySelector inside a document
 
 <!-- SHADOW_SECTION_DESCRIPTION_SHORT_END -->
 
@@ -28,7 +28,7 @@
 
 <!-- SHADOW_SECTION_DESCRIPTION_LONG_END -->
 
-`ConnectionObserver` is a tiny (1kb) API that provides a way to asynchronously observe the connectedness of a target Node inside a document.
+`ConnectionObserver` is a tiny (1kb) API that provides a way to asynchronously observe the connectedness of a target Node or querySelector inside a document.
 
 With `ConnectionObserver`, you have a low-level building block that can be used to build functionality on top of when you need to
 perform work when a Node lives inside the DOM, and/or perform work when it becomes detached.
@@ -61,6 +61,7 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
 - [Usage](#usage)
   - [Constructing a ConnectionObserver](#constructing-a-connectionobserver)
   - [Observing Nodes for connectedness](#observing-nodes-for-connectedness)
+  - [Observing querySelectors for connectedness](#observing-queryselectors-for-connectedness)
   - [Disconnecting the ConnectionObserver](#disconnecting-the-connectionobserver)
   - [Taking ConnectionRecords immediately](#taking-connectionrecords-immediately)
 - [API reference](#api-reference)
@@ -142,6 +143,23 @@ The callback will be invoked immediately with the connectedness of the observed 
 connectionObserver.observe(target);
 ```
 
+### Observing querySelectors for connectedness
+
+The `ConnectionObserver` method `observe` also accepts a query selector as the first argument, instead of a specific Node. This enables you to subscribe to connectedness events
+for any Nodes that matches your querySelector inside of the document, including any Shadow roots. You can use this functionality for performing actions on elements matching your
+querySelector as they enter and leave the DOM. For example:
+
+```typescript
+const connectionObserver = new ConnectionObserver(entries => {
+	for (const {connected, target} of entries) {
+		if (connected) {
+			makeImageFancy(target);
+		}
+	}
+});
+connectionObserver.observe(`img[data-fancy]`);
+```
+
 ### Disconnecting the ConnectionObserver
 
 The `ConnectionObserver` method `disconnect` will stop watching for the connectedness of all observed Nodes such that the callback won't be triggered any longer.
@@ -176,10 +194,14 @@ class ConnectionObserver {
 	constructor(callback: ConnectionCallback);
 
 	/**
-	 * Observes the given target Node for connections/disconnections.
-	 * @param {Node} target
+	 * Observe the given node or query selector for connections/disconnections.
+	 * If given a Node, that specific Node will be observed. If given a query selector, such
+	 * as for example "img[data-some-attr]", for each new MutationRecord, the query selector
+	 * will be executed and the matched nodes will be observed for connections/disconnections
+	 * @param {string} target
+	 * @example {observe("img[data-some-attr]")}
 	 */
-	observe(target: Node): void;
+	observe(target: Node | string): void;
 
 	/**
 	 * Takes the records immediately (instead of waiting for the next flush)
@@ -233,9 +255,9 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 ## Maintainers
 
-| <img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   />                                             |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Frederik Wessberg](mailto:frederikwessberg@hotmail.com)<br><strong>Twitter</strong>: [@FredWessberg](https://twitter.com/FredWessberg)<br>_Lead Developer_ |
+| <img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   />                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Frederik Wessberg](mailto:frederikwessberg@hotmail.com)<br><strong>Twitter</strong>: [@FredWessberg](https://twitter.com/FredWessberg)<br><strong>Github</strong>: [@wessberg](https://github.com/wessberg)<br>_Lead Developer_ |
 
 <!-- SHADOW_SECTION_MAINTAINERS_END -->
 

@@ -1,3 +1,9 @@
+## [1.0.4](https://github.com/wessberg/connection-observer/compare/v1.0.3...v1.0.4) (2020-09-11)
+
+### Bug Fixes
+
+- add support for browsers with non-native support for Node.prototype.isConnected ([947b287](https://github.com/wessberg/connection-observer/commit/947b2874e8766dfff43149712f6d2abc3d86e337))
+
 ## [1.0.3](https://github.com/wessberg/connection-observer/compare/v1.0.2...v1.0.3) (2019-10-31)
 
 ### Bug Fixes

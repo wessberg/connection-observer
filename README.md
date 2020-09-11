@@ -16,7 +16,7 @@
 <a href="https://www.npmjs.com/package/%40wessberg%2Fconnection-observer"><img alt="NPM version" src="https://badge.fury.io/js/%40wessberg%2Fconnection-observer.svg"    /></a>
 <a href="https://david-dm.org/wessberg/connection-observer"><img alt="Dependencies" src="https://img.shields.io/david/wessberg%2Fconnection-observer.svg"    /></a>
 <a href="https://github.com/wessberg/connection-observer/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/wessberg%2Fconnection-observer.svg"    /></a>
-<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square"    /></a>
+<a href="https://github.com/prettier/prettier"><img alt="code style: prettier" src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg"    /></a>
 <a href="https://opensource.org/licenses/MIT"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg"    /></a>
 <a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Support on Patreon" src="https://img.shields.io/badge/patreon-donate-green.svg"    /></a>
 
@@ -56,8 +56,9 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
   - [Features](#features)
 - [Table of Contents](#table-of-contents)
 - [Install](#install)
-  - [NPM](#npm)
+  - [npm](#npm)
   - [Yarn](#yarn)
+  - [pnpm](#pnpm)
 - [Usage](#usage)
   - [Constructing a ConnectionObserver](#constructing-a-connectionobserver)
   - [Observing Nodes for connectedness](#observing-nodes-for-connectedness)
@@ -83,7 +84,7 @@ perform work when a Node lives inside the DOM, and/or perform work when it becom
 
 ## Install
 
-### NPM
+### npm
 
 ```
 $ npm install @wessberg/connection-observer
@@ -93,6 +94,12 @@ $ npm install @wessberg/connection-observer
 
 ```
 $ yarn add @wessberg/connection-observer
+```
+
+### pnpm
+
+```
+$ pnpm add @wessberg/connection-observer
 ```
 
 <!-- SHADOW_SECTION_INSTALL_END -->
@@ -255,7 +262,7 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 ## Maintainers
 
-| <img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   />                                                                                                                  |
+| <a href="mailto:frederikwessberg@hotmail.com"><img alt="Frederik Wessberg" src="https://avatars2.githubusercontent.com/u/20454213?s=460&v=4" height="70"   /></a>                                                                |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Frederik Wessberg](mailto:frederikwessberg@hotmail.com)<br><strong>Twitter</strong>: [@FredWessberg](https://twitter.com/FredWessberg)<br><strong>Github</strong>: [@wessberg](https://github.com/wessberg)<br>_Lead Developer_ |
 
@@ -265,11 +272,13 @@ Do you want to contribute? Awesome! Please follow [these recommendations](./CONT
 
 ## Backers
 
+| <a href="https://usebubbles.com"><img alt="Bubbles" src="https://uploads-ssl.webflow.com/5d682047c28b217055606673/5e5360be16879c1d0dca6514_icon-thin-128x128%402x.png" height="70"   /></a> | <a href="https://github.com/cblanc"><img alt="Christopher Blanchard" src="https://avatars0.githubusercontent.com/u/2160685?s=400&v=4" height="70"   /></a> |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Bubbles](https://usebubbles.com)<br><strong>Twitter</strong>: [@use_bubbles](https://twitter.com/use_bubbles)                                                                              | [Christopher Blanchard](https://github.com/cblanc)                                                                                                         |
+
 ### Patreon
 
-[Become a backer](https://www.patreon.com/bePatron?u=11315442) and get your name, avatar, and Twitter handle listed here.
-
-<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Backers on Patreon" src="https://patreon-badge.herokuapp.com/11315442.png"  width="500"  /></a>
+<a href="https://www.patreon.com/bePatron?u=11315442"><img alt="Patrons on Patreon" src="https://img.shields.io/endpoint.svg?url=https://shieldsio-patreon.herokuapp.com/wessberg"  width="200"  /></a>
 
 <!-- SHADOW_SECTION_BACKERS_END -->
 

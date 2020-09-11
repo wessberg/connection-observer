@@ -2,7 +2,6 @@ import {CONNECTION_OBSERVER_INTERNALS_MAP} from "../../connection-observer/conne
 
 /**
  * A callback that will be invoked for all MutationRecords
- * @param {MutationRecord[]} mutations
  */
 export const mutationCallback: MutationCallback = (mutations): void => {
 	for (const mutation of mutations) {

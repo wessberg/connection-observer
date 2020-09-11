@@ -11,9 +11,8 @@ export const observeRoot = (() => {
 
 	/**
 	 * Observes the given root for changes to its childList (including its subtree)
-	 * @param {Node} root
 	 */
-	return function(root: Node): void {
+	return function (root: Node): void {
 		if (OBSERVED_ROOTS.has(root)) return;
 		OBSERVED_ROOTS.add(root);
 

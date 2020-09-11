@@ -28,9 +28,8 @@ export class ConnectionObserver implements IConnectionObserver {
 
 	/**
 	 * The Symbol.@@toStringTag value
-	 * @type {string}
 	 */
-	public get [Symbol.toStringTag]() {
+	get [Symbol.toStringTag]() {
 		return `ConnectionObserver`;
 	}
 
@@ -39,10 +38,8 @@ export class ConnectionObserver implements IConnectionObserver {
 	 * If given a Node, that specific Node will be observed. If given a query selector, such
 	 * as for example "img[data-some-attr]", for each new MutationRecord, the query selector
 	 * will be executed and the matched nodes will be observed for connections/disconnections
-	 * @param {string} target
-	 * @example {observe("img[data-some-attr]")}
 	 */
-	public observe(target: Node | string): void {
+	observe(target: Node | string): void {
 		// Ensure that a target is given
 		if (target === undefined) {
 			throw new ReferenceError(`Failed to execute '${this.observe.name}' on '${ConnectionObserver.name}': 1 argument required, but only 0 present.`);
@@ -50,9 +47,7 @@ export class ConnectionObserver implements IConnectionObserver {
 
 		// Ensure that it is in fact a Node
 		else if (typeof target !== "string" && !(target instanceof Node)) {
-			throw new TypeError(
-				`Failed to execute '${this.observe.name}' on '${ConnectionObserver.name}': parameter 1 is not of type 'Node' or a DOMString.`
-			);
+			throw new TypeError(`Failed to execute '${this.observe.name}' on '${ConnectionObserver.name}': parameter 1 is not of type 'Node' or a DOMString.`);
 		}
 
 		const internals = CONNECTION_OBSERVER_INTERNALS_MAP.get(this);
@@ -64,10 +59,8 @@ export class ConnectionObserver implements IConnectionObserver {
 
 	/**
 	 * Takes the records immediately (instead of waiting for the next flush)
-	 * @public
-	 * @return {ConnectionRecord[]}
 	 */
-	public takeRecords(): ConnectionRecord[] {
+	takeRecords(): ConnectionRecord[] {
 		const internals = CONNECTION_OBSERVER_INTERNALS_MAP.get(this);
 		if (internals == null) return [];
 		return internals.clearQueue();
@@ -75,9 +68,8 @@ export class ConnectionObserver implements IConnectionObserver {
 
 	/**
 	 * Disconnects the ConnectionObserver such that none of its callbacks will be invoked any longer
-	 * @public
 	 */
-	public disconnect(): void {
+	disconnect(): void {
 		const internals = CONNECTION_OBSERVER_INTERNALS_MAP.get(this);
 		if (internals == null) return;
 		internals.clearObservedTargets();

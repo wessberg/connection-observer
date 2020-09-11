@@ -8,13 +8,13 @@ import {queryRoot} from "../util/query-root";
 import {mergeNodes} from "../util/merge-nodes";
 import {rootObserverQueue} from "../root-observer-queue/root-observer-queue";
 import {observeMissingRoots} from "../observe-missing-roots/observe-missing-roots";
+import {isConnected} from "../util/is-connected";
 
 export const CONNECTION_OBSERVER_INTERNALS_MAP: Map<IConnectionObserver, ConnectionObserverInternals> = new Map();
 
 export interface ConnectionObserverInternals {
 	/**
 	 * The Set of all observed targets
-	 * @type {Set<Node|string>}
 	 */
 	readonly observedTargets: Set<Node | string>;
 
@@ -22,20 +22,16 @@ export interface ConnectionObserverInternals {
 	 * Executes the given query on the given root and
 	 * handles all of the nodes, including any that has been
 	 * matched previously, as mutations
-	 * @param {Node} root
-	 * @param {string} query
 	 */
 	queryRootAndHandleMutationChanges(root: Node, query: string): void;
 
 	/**
 	 * Handles a mutation change for a the given target Nodes
-	 * @param {Iterable<Node>} targetNodes
 	 */
 	handleMutationChange(targetNodes: Node[]): void;
 
 	/**
 	 * Clears the queue and returns the popped contents of it
-	 * @return {ConnectionRecord[]}
 	 */
 	clearQueue(): ConnectionRecord[];
 
@@ -46,7 +42,6 @@ export interface ConnectionObserverInternals {
 
 	/**
 	 * Adds the given target to the Set of observed targets
-	 * @param {Node|string} target
 	 */
 	addObservedTarget(target: Node | string): void;
 }
@@ -54,39 +49,33 @@ export interface ConnectionObserverInternals {
 export function initializeConnectionObserver(observer: ConnectionObserver, callback: ConnectionCallback): void {
 	/**
 	 * The ConnectionRecord queue
-	 * @type {Set<ConnectionRecord>}
 	 */
 	const queue: Set<ConnectionRecord> = new Set();
 
 	/**
 	 * The Set of all observed targets
-	 * @type {Set<Node|string>}
 	 */
 	const observedTargets: Set<Node | string> = new Set();
 
 	/**
 	 * A Map between query selectors and Nodes that matches them
-	 * @type {Map<string, Map<Node, Set<Node>>>}
 	 */
 	const rootToQuerySelectorToMatchedNodesMap: WeakMap<Node, Map<string, Set<Node>>> = new Map();
 
 	/**
 	 * A WeakMap between Nodes and their last 'connected' value
-	 * @type {WeakMap<Node, boolean>}
 	 */
 	const nodeToLastConnectionValueMap: WeakMap<Node, boolean> = new WeakMap();
 
 	/**
 	 * Whether a flush is scheduled
-	 * @type {boolean}
 	 */
-	let scheduled: boolean = false;
+	let scheduled = false;
 
 	/**
 	 * Whether the queue is currently being flushed
-	 * @type {boolean}
 	 */
-	let flushing: boolean = false;
+	let flushing = false;
 
 	let hasFoundMissingRoots = false;
 
@@ -118,7 +107,6 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 
 	/**
 	 * Adds the given ConnectionRecord to the queue
-	 * @param {ConnectionRecord} entry
 	 */
 	const addToQueue = (entry: ConnectionRecord): void => {
 		queue.add(entry);
@@ -130,7 +118,6 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 
 	/**
 	 * Clears the queue and returns the popped contents of it
-	 * @return {ConnectionRecord[]}
 	 */
 	const clearQueue = (): ConnectionRecord[] => {
 		const items = [...queue];
@@ -149,8 +136,6 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 	 * Executes the given query on the given root and
 	 * handles all of the nodes, including any that has been
 	 * matched previously, as mutations
-	 * @param {Node} root
-	 * @param {string} query
 	 */
 	const queryRootAndHandleMutationChanges = (root: Node, query: string): void => {
 		let oldQuerySelectorMap = rootToQuerySelectorToMatchedNodesMap.get(root);
@@ -176,7 +161,6 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 
 	/**
 	 * Handles a mutation change for a the given target Nodes
-	 * @param {Iterable<Node>} targetNodes
 	 */
 	const handleMutationChange = (targetNodes: Iterable<Node>): void => {
 		for (const targetNode of targetNodes) {
@@ -184,13 +168,13 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 			const lastValue = nodeToLastConnectionValueMap.get(targetNode);
 
 			// Check if it is connected
-			const isConnected = targetNode.isConnected;
+			const isTargetNodeConnected = isConnected(targetNode);
 
 			// If it isn't equal to the last value, or if there is no last value, invoke the observer
-			if (lastValue !== isConnected) {
-				nodeToLastConnectionValueMap.set(targetNode, isConnected);
+			if (lastValue !== isTargetNodeConnected) {
+				nodeToLastConnectionValueMap.set(targetNode, isTargetNodeConnected);
 				addToQueue({
-					connected: isConnected,
+					connected: isTargetNodeConnected,
 					target: targetNode
 				});
 			}
@@ -199,7 +183,6 @@ export function initializeConnectionObserver(observer: ConnectionObserver, callb
 
 	/**
 	 * Adds the given target to the Set of observed targets
-	 * @param {Node|string} target
 	 */
 	const addObservedTarget = (target: Node | string): void => {
 		// Now that a target node is to observed, run the root observer queue (if it isn't already running)

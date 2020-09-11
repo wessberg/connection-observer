@@ -1,0 +1,7 @@
+{
+	"env": {
+		"es2020": true,
+		"browser": true
+	},
+	"extends": "./node_modules/@wessberg/ts-config/.eslintrc.json"
+}

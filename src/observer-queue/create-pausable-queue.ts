@@ -2,9 +2,6 @@ import {PausableQueue} from "./pausable-queue";
 
 /**
  * Creates a PausableQueue.
- * @param {(node: Node) => void} job
- * @param {Node[]} queueItems
- * @return {PausableQueue}
  */
 export function createPausableQueue(job: (node: Node) => void, ...queueItems: Node[]): PausableQueue {
 	const queue: Set<Node> = new Set(queueItems);

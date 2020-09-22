@@ -1,3 +1,9 @@
+## [1.0.5](https://github.com/wessberg/connection-observer/compare/v1.0.4...v1.0.5) (2020-09-22)
+
+### Features
+
+- **ShadyDOM:** improve ShadyDOM interoperability ([0410bd9](https://github.com/wessberg/connection-observer/commit/0410bd95219355a494d2b1729ae6c7ea36f06252))
+
 ## [1.0.4](https://github.com/wessberg/connection-observer/compare/v1.0.3...v1.0.4) (2020-09-11)
 
 ### Bug Fixes

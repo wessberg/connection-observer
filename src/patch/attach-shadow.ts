@@ -6,7 +6,7 @@ import {isShady} from "../util/is-shady";
  */
 export function patchElementPrototypeAttachShadow(callback: (node: ShadowRoot) => void): void {
 	// If Shadow DOM is not available, or if it is based on the ShadyDOM polyfill, there's nothing (or no need) to patch
-	if (ORIGINAL_ATTACH_SHADOW == null || isShady()) return;
+	if (ORIGINAL_ATTACH_SHADOW == null || isShady() || typeof Element === 'undefined') return;
 
 	Element.prototype.attachShadow = function (this: Element, shadowRootInitDict: ShadowRootInit): ShadowRoot {
 		const shadowRoot = ORIGINAL_ATTACH_SHADOW.call(this, shadowRootInitDict);
